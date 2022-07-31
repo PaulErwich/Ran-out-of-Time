@@ -7,6 +7,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Extra/Helper.h"
+
+#include "GameStates/GameStateBase.h"
+#include "GameStates/GameMenu.h"
+#include "GameStates/GamePlay.h"
+#include "GameStates/GameOver.h"
+#include "GameStates/GameWin.h"
 
 
 class Game
@@ -24,7 +31,12 @@ class Game
 
   sf::Font font;
 
-  sf::Text text;
+  GameMenu* game_menu;
+  GamePlay* game_play;
+  GameOver* game_over;
+  GameWin* game_win;
+
+  GameStateBase* current_state;
 };
 
 
