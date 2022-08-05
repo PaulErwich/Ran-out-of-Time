@@ -159,7 +159,7 @@ void Level::generatePlatform(
 void Level::generateBlock(int platform_x, int platform_y, int texture_num)
 {
   int world_pos = platform_x * HEIGHT + platform_y;
-  world[world_pos]->init(single_block_texture,
+  world[world_pos]->init(leaf_block_texture,
                          platform_x * BLOCK_SZ, platform_y * BLOCK_SZ);
 
   platforms[current_platforms]->getSprite()->setPosition(
@@ -223,13 +223,29 @@ STATE Level::update(float dt)
 
   if (player->AABB(floor))
   {
-    std::cout << "hit" << std::endl;
     player->setOnGround(true);
     player->getSprite()->setPosition(player->getSprite()->getPosition().x,
                                      floor->getMin().y - player->getHeight());
   }
 
   Object_Manifold collision(player, nullptr);
+
+ //collision.B = wall_one;
+
+ //if (AABBvsAABB_MK3(&collision))
+ //{
+ //  if (collision.normal.x != 0)
+ //  {
+ //    if (collision.normal.x == 1)
+ //    {
+ //      player->getSprite()->setPosition(collision.B->getMin().x - player->getWidth(), player->getSprite()->getPosition().y);
+ //    }
+ //    else if (collision.normal.x == -1)
+ //    {
+ //      player->getSprite()->setPosition(collision.B->getMax().x, player->getSprite()->getPosition().y);
+ //    }
+ //  }
+ //}
 
   for (int i = 0; i < PLAT_NUM; i++)
   {
@@ -239,7 +255,6 @@ STATE Level::update(float dt)
 
       if (AABBvsAABB_MK3(&collision))
       {
-        std::cout << "hit\n";
         if (collision.normal.x != 0)
         {
           if (collision.normal.x == 1)

@@ -44,6 +44,9 @@ class Level
 
   GameObject* floor;
 
+  GameObject* wall_one;
+  GameObject* wall_two;
+
   static const int PLAT_NUM = 18;
   int current_platforms;
   GameObject* platforms[PLAT_NUM];

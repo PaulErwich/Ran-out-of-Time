@@ -6,7 +6,7 @@ Player::Player(sf::RenderWindow& game_window) : Entity(game_window)
 
 bool Player::init()
 {
-  if (!texture->loadFromFile("Data/Data/images/playerAnimation.png"))
+  if (!texture->loadFromFile("Data/Data/images/playerAnimationmk2.png"))
   {
     return false;
   }
@@ -58,6 +58,10 @@ void Player::keyPressed(sf::Event event)
   {
     movement.y = -5;
     on_ground = false;
+  }
+  else if (event.key.code == sf::Keyboard::Space && !on_ground)
+  {
+    movement.y = 7.5;
   }
 }
 
@@ -123,7 +127,7 @@ void Player::setPlayerAnimation()
   // player animation
   if (current_animation == AnimationState::IDLE)
   {
-    player_texture_rectangle = sf::IntRect(0, 0, 32, 32);
+    player_texture_rectangle = sf::IntRect(0, 0, 17, 32);
     sprite->setTextureRect(player_texture_rectangle);
     std::cout<<"idle"<<std::endl;
   }
@@ -136,7 +140,7 @@ void Player::setPlayerAnimation()
 
   else if (current_animation == AnimationState::RUNNING)
   {
-    player_texture_rectangle = sf::IntRect(0, 0, 32, 32);
+    player_texture_rectangle = sf::IntRect(0, 0, 17, 32);
     sprite->setTextureRect(player_texture_rectangle);
   }
 }
@@ -155,7 +159,7 @@ void Player::playerAnimatorUpdate(float dt)
       footstep_timer = 0;
     }
     playerAnimator(
-      0.05f, current_animation, player_texture_rectangle, 160, 32);
+      0.05f, current_animation, player_texture_rectangle, 85, 17);
   }
   else if (current_animation == AnimationState::JUMPING)
   {
@@ -165,7 +169,7 @@ void Player::playerAnimatorUpdate(float dt)
   else if (current_animation == AnimationState::IDLE)
   {
     playerAnimator(
-      0.03f * dt, current_animation, player_texture_rectangle, 32, 32);
+      0.03f * dt, current_animation, player_texture_rectangle, 17, 17);
   }
   if (movement.x == 0)
   {
@@ -187,7 +191,7 @@ void Player::playerAnimator(
     if (current_animation == AnimationState::RUNNING)
     {
       player_texture_rectangle.left += sprite_size;
-      player_texture_rectangle.width  = 32;
+      player_texture_rectangle.width  = 17;
       player_texture_rectangle.top    = 0.f;
       player_texture_rectangle.height = 32;
       if (player_texture_rectangle.left >= max_size)
@@ -211,7 +215,7 @@ void Player::playerAnimator(
     else if (current_animation == AnimationState::IDLE)
     {
       player_texture_rectangle.left += sprite_size;
-      player_texture_rectangle.width  = 32;
+      player_texture_rectangle.width  = 17;
       player_texture_rectangle.top    = 0;
       player_texture_rectangle.height = 32;
       if (player_texture_rectangle.left >= max_size)

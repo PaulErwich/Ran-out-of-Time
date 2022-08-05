@@ -80,10 +80,9 @@ void GamePlay::input(sf::Event event)
 STATE GamePlay::update(float dt)
 {
   sf::Vector2f player_pos(window.getSize().x / 2, player->getSprite()->getPosition().y);
-  if (player_pos.y > level->getHeight() * 60 - window.getSize().y / 2)
+  if (player_pos.y> level->getHeight() * 60 - window.getSize().y / 2)
   {
     player_pos.y = level->getHeight() * 60 - window.getSize().y / 2;
-    std::cout << player_pos.y << std::endl;
   }
   else if (player_pos.y + window.getSize().y / 2 < level->getHeight() * 60 - window.getSize().y / 2)
   {
