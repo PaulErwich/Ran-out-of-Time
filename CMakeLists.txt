@@ -24,7 +24,7 @@ set(SOURCE_FILES src/main.cpp src/Game.cpp src/Game.h
         src/GameObjects/Entities/Entity.cpp src/GameObjects/Entities/Entity.h
         src/GameObjects/Entities/Enemy.cpp src/GameObjects/Entities/Enemy.h
         src/GameObjects/Level.cpp src/GameObjects/Level.h
-        src/GameObjects/Block.cpp src/GameObjects/Block.h src/Extra/Collisions/CollisionStructs.cpp src/Extra/Collisions/CollisionStructs.h src/Extra/Collisions/CollisionFunctions.cpp src/Extra/Collisions/CollisionFunctions.h)
+        src/GameObjects/Block.cpp src/GameObjects/Block.h src/Extra/Collisions/CollisionStructs.cpp src/Extra/Collisions/CollisionStructs.h src/Extra/Collisions/CollisionFunctions.cpp src/Extra/Collisions/CollisionFunctions.h src/GameStates/AnimationState.h)
 
 add_executable(SFMLTemplate ${SOURCE_FILES})
 

@@ -1,0 +1,12 @@
+//
+// Created by scott on 05/08/2022.
+//
+
+#ifndef SFMLTEMPLATE_ANIMATIONSTATE_H
+#define SFMLTEMPLATE_ANIMATIONSTATE_H
+
+enum class AnimationState{IDLE= 1,RUNNING
+  = 2,JUMPING=3};
+
+
+#endif // SFMLTEMPLATE_ANIMATIONSTATE_H
