@@ -1,7 +1,3 @@
-//
-// Created by MLG Erwich on 31/07/2022.
-//
-
 #ifndef SFMLTEMPLATE_GAMEMENU_H
 #define SFMLTEMPLATE_GAMEMENU_H
 

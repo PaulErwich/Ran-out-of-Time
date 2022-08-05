@@ -61,6 +61,7 @@ void Game::update(float dt)
         current_state = game_menu;
         break;
       case STATE::GAME_PLAY:
+        std::cout << "Enter GamePlay" << std::endl;
         game_play->reset();
         current_state = game_play;
         break;
@@ -86,5 +87,4 @@ void Game::update(float dt)
 void Game::render()
 {
   current_state->render();
-
 }

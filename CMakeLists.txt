@@ -11,7 +11,21 @@ endif()
 
 
 find_package(SFML 2.5.1 COMPONENTS system window graphics network audio)
-set(SOURCE_FILES src/main.cpp src/Game.cpp src/Game.h src/GameStates/GameStateBase.cpp src/GameStates/GameStateBase.h src/GameStates/GameMenu.cpp src/GameStates/GameMenu.h src/GameStates/GamePlay.cpp src/GameStates/GamePlay.h src/GameStates/GameOver.cpp src/GameStates/GameOver.h src/GameStates/GameWin.cpp src/GameStates/GameWin.h src/Extra/Helper.cpp src/Extra/Helper.h)
+set(SOURCE_FILES src/main.cpp src/Game.cpp src/Game.h
+        src/GameStates/GameStateBase.cpp src/GameStates/GameStateBase.h
+        src/GameStates/GameMenu.cpp src/GameStates/GameMenu.h
+        src/GameStates/GamePlay.cpp src/GameStates/GamePlay.h
+        src/GameStates/GameOver.cpp src/GameStates/GameOver.h
+        src/GameStates/GameWin.cpp src/GameStates/GameWin.h
+        src/Extra/Helper.cpp src/Extra/Helper.h
+        src/GameObjects/GameObject.cpp src/GameObjects/GameObject.h
+        src/Extra/Vector2.cpp src/Extra/Vector2.h
+        src/GameObjects/Entities/Player.cpp src/GameObjects/Entities/Player.h
+        src/GameObjects/Entities/Entity.cpp src/GameObjects/Entities/Entity.h
+        src/GameObjects/Entities/Enemy.cpp src/GameObjects/Entities/Enemy.h
+        src/GameObjects/Level.cpp src/GameObjects/Level.h
+        src/GameObjects/Block.cpp src/GameObjects/Block.h src/Extra/Collisions/CollisionStructs.cpp src/Extra/Collisions/CollisionStructs.h src/Extra/Collisions/CollisionFunctions.cpp src/Extra/Collisions/CollisionFunctions.h)
+
 add_executable(SFMLTemplate ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")

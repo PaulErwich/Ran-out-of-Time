@@ -14,6 +14,7 @@ int main() {
 
     if (!game.init())
     {
+      std::cout << "INIT FAILED" << std::endl;
       return 0;
     }
 
@@ -46,7 +47,7 @@ int main() {
       // update the game
       game.update(dt);
 
-      window.clear(sf::Color::Black);
+      window.clear(sf::Color(128, 128, 128));
 
       // render the game
       game.render();

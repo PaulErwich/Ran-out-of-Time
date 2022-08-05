@@ -1,7 +1,3 @@
-//
-// Created by MLG Erwich on 31/07/2022.
-//
-
 #include "GameOver.h"
 GameOver::GameOver(
   STATE state_id, sf::RenderWindow& game_window, sf::Font& game_font) :
