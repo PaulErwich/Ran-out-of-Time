@@ -85,7 +85,7 @@ void Level::init_setup_blocks()
 
 void Level::init_setup_platforms()
 {
-  world[0]->init(leaf_block_texture, 0, 0);
+  //world[0]->init(leaf_block_texture, 0, 0);
 
   generatePlatform(8, 83, 3, leaf_platform_texture);
   generatePlatform(10, 79, 3, leaf_platform_texture);
@@ -108,8 +108,8 @@ void Level::init_setup_platforms()
   generatePlatform(13, 19, 4, leaf_platform_texture);
   generatePlatform(16, 15, 4, leaf_platform_texture);
   generatePlatform(16, 11, 4, leaf_platform_texture);
-  generatePlatform(8, 7, 8, leaf_platform_texture);
-  generatePlatform(18, 7, 9, leaf_platform_texture);
+  generatePlatform(5, 7, 10, leaf_platform_texture);
+  generatePlatform(17, 7, 10, leaf_platform_texture);
 
   generateWall(4,86,80, &wall_texture);
   generateWall(27,86,80, &wall_texture);
