@@ -51,6 +51,11 @@ void Game::update(float dt)
   }
   else
   {
+    if (new_state != STATE::GAME_PLAY)
+    {
+      window.setView(window.getDefaultView());
+    }
+
     switch(new_state)
     {
       case STATE::GAME_EXIT:

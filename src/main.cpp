@@ -47,7 +47,7 @@ int main() {
       // update the game
       game.update(dt);
 
-      window.clear(sf::Color(128, 128, 128));
+      window.clear(sf::Color(82, 139, 246));
 
       // render the game
       game.render();

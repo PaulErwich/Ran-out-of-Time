@@ -5,6 +5,8 @@ sf::Texture Level::leaf_top_texture;
 sf::Texture Level::leaf_block_texture;
 sf::Texture Level::leaf_platform_texture[3];
 sf::Texture Level::wall_texture;
+sf::Texture Level::inside_tower_texture;
+sf::Texture Level::clock_tower_texture;
 
 Level::Level(sf::RenderWindow& game_window) : window(game_window)
 {
@@ -25,10 +27,17 @@ Level::Level(sf::RenderWindow& game_window) : window(game_window)
     enemies[i] = new Entity(window);
   }
 
+  for (int i = 0; i < COG_NUMBER; i++)
+  {
+    cogs[i] = new Cog(window);
+  }
+
   player = nullptr;
 
   current_platforms = 0;
   current_enemies = 0;
+
+  object_count = 0;
 }
 
 Level::~Level()
@@ -49,11 +58,33 @@ Level::~Level()
   {
     delete enemies[i];
   }
+
+  for (int i = 0; i < COG_NUMBER; i++)
+  {
+    delete cogs[i];
+  }
 }
 
 bool Level::init(Player* _player)
 {
   player = _player;
+
+  float scale = 60.f / 18.f;
+  inside_tower.setTexture(inside_tower_texture);
+  inside_tower.scale(scale, scale);
+  inside_tower.setPosition(5 * BLOCK_SZ, 7 * BLOCK_SZ);
+
+  clock_tower.setTexture(clock_tower_texture);
+  clock_tower.scale(scale, scale);
+  clock_tower.setPosition(0, -3 * BLOCK_SZ);
+
+  int cog_x[COG_NUMBER] = {24, 8, 26, 26};
+  int cog_y[COG_NUMBER] = {62, 30, 30, 26};
+
+  for (int i = 0; i < COG_NUMBER; i++)
+  {
+    cogs[i]->init(cog_x[i] * BLOCK_SZ, cog_y[i] * BLOCK_SZ);
+  }
 
   init_setup_blocks();
   init_setup_platforms();
@@ -85,8 +116,6 @@ void Level::init_setup_blocks()
 
 void Level::init_setup_platforms()
 {
-  //world[0]->init(leaf_block_texture, 0, 0);
-
   generatePlatform(8, 83, 3, leaf_platform_texture);
   generatePlatform(10, 79, 3, leaf_platform_texture);
   generatePlatform(18, 79, 4, leaf_platform_texture);
@@ -125,10 +154,12 @@ bool Level::loadAssets()
   if (!leaf_top_texture.loadFromFile("Data/Data/images/tile_0018.png")) return false;
   if (!leaf_block_texture.loadFromFile("Data/Data/images/tile_0038.png")) return false;
 
-  if (!leaf_platform_texture[0].loadFromFile("Data/Data/images/tile_0077.png")) return false;
-  if (!leaf_platform_texture[1].loadFromFile("Data/Data/images/tile_0078.png")) return false;
-  if (!leaf_platform_texture[2].loadFromFile("Data/Data/images/tile_0079.png")) return false;
+  if (!leaf_platform_texture[0].loadFromFile("Data/Data/images/clockBlockLeft.png")) return false;
+  if (!leaf_platform_texture[1].loadFromFile("Data/Data/images/clockBlockMid.png")) return false;
+  if (!leaf_platform_texture[2].loadFromFile("Data/Data/images/clockBlockRight.png")) return false;
   if (!wall_texture.loadFromFile("Data/Data/images/clockBlockWall.png")) return false;
+  if (!inside_tower_texture.loadFromFile("Data/Data/images/clockTowerInsideWall.png")) return false;
+  if (!clock_tower_texture.loadFromFile("Data/Data/images/clockTower.png")) return false;
 
   return true;
 }
@@ -285,6 +316,18 @@ STATE Level::update(float dt)
                                      floor->getMin().y - player->getHeight());
   }
 
+  for (int i = 0; i < COG_NUMBER; i++)
+  {
+    if (cogs[i]->getVisible())
+    {
+      if (player->AABB(cogs[i]))
+      {
+        cogs[i]->setVisible(false);
+        object_count++;
+      }
+    }
+  }
+
   Object_Manifold collision(player, nullptr);
 
  //collision.B = wall_one;
@@ -338,14 +381,27 @@ STATE Level::update(float dt)
     }
   }
 
+  if (object_count == 4 && player->getMin().y < 300)
+  {
+    return STATE::GAME_WIN;
+  }
+
   return STATE::GAME_PLAY;
 }
 
 void Level::render()
 {
+  window.draw(inside_tower);
+  window.draw(clock_tower);
+
   for (int i = 0; i < WIDTH * HEIGHT; i++)
   {
     world[i]->render();
+  }
+
+  for (int i = 0; i < COG_NUMBER; i++)
+  {
+    cogs[i]->render();
   }
 
   player->render();

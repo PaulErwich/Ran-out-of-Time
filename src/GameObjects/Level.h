@@ -8,6 +8,7 @@
 #include "Entities/Player.h"
 #include "../GameStates/GameStateBase.h"
 #include "Block.h"
+#include "Cog.h"
 #include "../Extra/Collisions/CollisionFunctions.h"
 #include "../Extra/Collisions/CollisionStructs.h"
 
@@ -33,6 +34,8 @@ class Level
   static sf::Texture leaf_block_texture;
   static sf::Texture leaf_platform_texture[3];
   static sf::Texture wall_texture;
+  static sf::Texture inside_tower_texture;
+  static sf::Texture clock_tower_texture;
 
  private:
   sf::RenderWindow& window;
@@ -45,8 +48,8 @@ class Level
 
   GameObject* floor;
 
-  GameObject* wall_one;
-  GameObject* wall_two;
+  sf::Sprite inside_tower;
+  sf::Sprite clock_tower;
 
   static const int PLAT_NUM = 200;
   int current_platforms;
@@ -56,6 +59,11 @@ class Level
   static const int MAX_ENEMIES = 5;
   int current_enemies;
   Entity* enemies[MAX_ENEMIES];
+
+  static const int COG_NUMBER = 4;
+  Cog *cogs[COG_NUMBER];
+
+  int object_count;
 
   void init_setup_blocks();
   void init_setup_platforms();

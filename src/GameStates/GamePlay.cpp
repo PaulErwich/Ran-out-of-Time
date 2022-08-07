@@ -145,13 +145,12 @@ void GamePlay::render()
     i->render();
   }
 
+
+  level->render();
   for (auto & i : springs)
   {
     i->render();
   }
-  level->render();
-
-
 }
 
 void  GamePlay::checkSpringCollisions(float dt)
