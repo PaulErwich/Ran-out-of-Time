@@ -6,7 +6,7 @@ int main() {
     std::cout << "A window should open alongside the console" << std::endl;
 
     // Create window and setup
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFMLTemplate");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Ran out of time");
     window.setFramerateLimit(60);
 
     // Initialise an instance of the game

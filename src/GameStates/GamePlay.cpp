@@ -39,7 +39,7 @@ GamePlay::~GamePlay()
 bool GamePlay::init()
 {
   int x_pos_enemy[spring_count] = { 900, 1000, 2030, 2590 };
-  int y_pos_enemy[spring_count] = { 300, 50, 2030, 2590 };
+  int y_pos_enemy[spring_count] = { 3000, 2750, 2030, 2590 };
 
 
   if (!player->init())
@@ -111,14 +111,14 @@ STATE GamePlay::update(float dt)
   }
 
   sf::Vector2f player_pos(window.getSize().x / 2, player->getSprite()->getPosition().y);
-  /*if (player_pos.y> level->getHeight() * 60 - window.getSize().y / 2)
+  if (player_pos.y > level->getHeight() * 60 - window.getSize().y / 2)
   {
     player_pos.y = level->getHeight() * 60 - window.getSize().y / 2;
   }
-  else if (player_pos.y + window.getSize().y / 2 < level->getHeight() * 30 - window.getSize().y / 2)
+  else if (player_pos.y + window.getSize().y / 2 < level->getHeight() * 60 - window.getSize().y / 2)
   {
-    player_pos.y = window.getSize().y / 2;
-  }*/
+    //player_pos.y = window.getSize().y / 2;
+  }
   new_view.setCenter(player_pos);
   new_view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
 

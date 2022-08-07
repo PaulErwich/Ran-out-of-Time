@@ -31,7 +31,8 @@ class Level
   static sf::Texture single_block_texture;
   static sf::Texture leaf_top_texture;
   static sf::Texture leaf_block_texture;
-  static sf::Texture leaf_platform_texture[4];
+  static sf::Texture leaf_platform_texture[3];
+  static sf::Texture wall_texture;
 
  private:
   sf::RenderWindow& window;
@@ -71,7 +72,7 @@ class Level
   void generateBox(int platform_x, int platform_y, int width, int height,
                    sf::Texture textures[], bool on_floor);
 
-  void textureWall(int platform_x, int platform_y, int width, sf::Texture* textures);
+  void textureWall(int platform_x, int platform_y, int height, sf::Texture* textures);
 };
 
 #endif // SFMLTEMPLATE_LEVEL_H

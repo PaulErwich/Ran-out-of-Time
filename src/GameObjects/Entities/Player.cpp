@@ -21,7 +21,7 @@ bool Player::init()
   height = sprite->getGlobalBounds().height;
 
   sprite->setPosition(window.getSize().x / 2,
-                      20 * 60);
+                      85 * 60);
 
   setMin();
   calculateMax();
@@ -32,7 +32,7 @@ bool Player::init()
 void Player::reset()
 {
   sprite->setPosition(window.getSize().x / 2,
-                      20 * 60);
+                      85 * 60);
 
   movement = Vector2();
 }

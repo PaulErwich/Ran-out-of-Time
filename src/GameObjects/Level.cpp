@@ -3,7 +3,8 @@
 sf::Texture Level::single_block_texture;
 sf::Texture Level::leaf_top_texture;
 sf::Texture Level::leaf_block_texture;
-sf::Texture Level::leaf_platform_texture[4];
+sf::Texture Level::leaf_platform_texture[3];
+sf::Texture Level::wall_texture;
 
 Level::Level(sf::RenderWindow& game_window) : window(game_window)
 {
@@ -66,16 +67,16 @@ void Level::init_setup_blocks()
   {
     for (int j = 0; j < HEIGHT; j += HEIGHT)
     {
-      world[i * HEIGHT + (j + 42)]->init(
-        leaf_top_texture, i * BLOCK_SZ, (j + 42) * BLOCK_SZ);
-      world[i * HEIGHT + (j + 43)]->init(
-        leaf_block_texture, i * BLOCK_SZ, (j + 43) * BLOCK_SZ);
-      world[i * HEIGHT + (j + 44)]->init(
-        leaf_block_texture, i * BLOCK_SZ, (j + 44) * BLOCK_SZ);
+      world[i * HEIGHT + (j + HEIGHT - 3)]->init(
+        leaf_top_texture, i * BLOCK_SZ, (j + HEIGHT - 3) * BLOCK_SZ);
+      world[i * HEIGHT + (j + HEIGHT - 2)]->init(
+        leaf_block_texture, i * BLOCK_SZ, (j + HEIGHT - 2) * BLOCK_SZ);
+      world[i * HEIGHT + (j + HEIGHT - 1)]->init(
+        leaf_block_texture, i * BLOCK_SZ, (j + HEIGHT - 1) * BLOCK_SZ);
     }
   }
 
-  floor->getSprite()->setPosition(world[42]->getSprite()->getPosition());
+  floor->getSprite()->setPosition(world[HEIGHT - 3]->getSprite()->getPosition());
   floor->setWidth(WIDTH * BLOCK_SZ);
   floor->setHeight(3 * BLOCK_SZ);
   floor->setMin();
@@ -84,31 +85,34 @@ void Level::init_setup_blocks()
 
 void Level::init_setup_platforms()
 {
-  generatePlatform(8, 38, 3, leaf_platform_texture);
-  generatePlatform(10, 34, 3, leaf_platform_texture);
-  generatePlatform(18, 34, 4, leaf_platform_texture);
-  generatePlatform(22, 30, 3, leaf_platform_texture);
-  generatePlatform(17, 27, 3, leaf_platform_texture);
-  generatePlatform(12, 25, 4, leaf_platform_texture);
-  generatePlatform(7, 21, 4, leaf_platform_texture);
-  generatePlatform(12, 18, 13, leaf_platform_texture);
-  generatePlatform(22, 14, 3, leaf_platform_texture);
-  generatePlatform(8, 11, 5, leaf_platform_texture);
-  generatePlatform(17, 11, 4, leaf_platform_texture);
-  generatePlatform(8, 7, 4, leaf_platform_texture);
-  generatePlatform(18, -10, 6, leaf_platform_texture);
-  generatePlatform(12, -6, 4, leaf_platform_texture);
-  generatePlatform(8, -14, 8, leaf_platform_texture);
-  generatePlatform(19, -14, 8, leaf_platform_texture);
-  generatePlatform(16, -18, 11, leaf_platform_texture);
-  generatePlatform(10, -22, 4, leaf_platform_texture);
-  generatePlatform(13, -26, 4, leaf_platform_texture);
-  generatePlatform(16, -30, 4, leaf_platform_texture);
-  generatePlatform(16, -34, 4, leaf_platform_texture);
-  generatePlatform(8, -38, 8, leaf_platform_texture);
-  generatePlatform(18, -38, 9, leaf_platform_texture);
+  world[0]->init(leaf_block_texture, 0, 0);
 
-  generateWall(8,38,10,leaf_platform_texture);
+  generatePlatform(8, 83, 3, leaf_platform_texture);
+  generatePlatform(10, 79, 3, leaf_platform_texture);
+  generatePlatform(18, 79, 4, leaf_platform_texture);
+  generatePlatform(22, 75, 3, leaf_platform_texture);
+  generatePlatform(17, 72, 3, leaf_platform_texture);
+  generatePlatform(12, 70, 4, leaf_platform_texture);
+  generatePlatform(7, 66, 4, leaf_platform_texture);
+  generatePlatform(12, 63, 13, leaf_platform_texture);
+  generatePlatform(22, 59, 3, leaf_platform_texture);
+  generatePlatform(8, 56, 5, leaf_platform_texture);
+  generatePlatform(17, 56, 4, leaf_platform_texture);
+  generatePlatform(8, 52, 4, leaf_platform_texture);
+  generatePlatform(18, 35, 6, leaf_platform_texture);
+  generatePlatform(12, 39, 4, leaf_platform_texture);
+  generatePlatform(8, 31, 8, leaf_platform_texture);
+  generatePlatform(19, 31, 8, leaf_platform_texture);
+  generatePlatform(16, 27, 11, leaf_platform_texture);
+  generatePlatform(10, 23, 4, leaf_platform_texture);
+  generatePlatform(13, 19, 4, leaf_platform_texture);
+  generatePlatform(16, 15, 4, leaf_platform_texture);
+  generatePlatform(16, 11, 4, leaf_platform_texture);
+  generatePlatform(8, 7, 8, leaf_platform_texture);
+  generatePlatform(18, 7, 9, leaf_platform_texture);
+
+  generateWall(4,86,80, &wall_texture);
+  generateWall(27,86,80, &wall_texture);
 }
 
 void Level::init_setup_enemies()
@@ -124,7 +128,7 @@ bool Level::loadAssets()
   if (!leaf_platform_texture[0].loadFromFile("Data/Data/images/tile_0077.png")) return false;
   if (!leaf_platform_texture[1].loadFromFile("Data/Data/images/tile_0078.png")) return false;
   if (!leaf_platform_texture[2].loadFromFile("Data/Data/images/tile_0079.png")) return false;
-  if (!leaf_platform_texture[3].loadFromFile("Data/Data/images/clockBlockWall.png")) return false;
+  if (!wall_texture.loadFromFile("Data/Data/images/clockBlockWall.png")) return false;
 
   return true;
 }
@@ -144,7 +148,7 @@ void Level::textureRow(
 
   for (int i = 0; i < width; i++)
   {
-    if (i ==0)
+    if (i == 0)
     {
       int pos = (platform_x + i) * platform_y;
       world[start]->init(textures[0], (pos / platform_y) * BLOCK_SZ,
@@ -167,16 +171,15 @@ void Level::textureRow(
 }
 
 void Level::textureWall(
-  int platform_x, int platform_y, int width,  sf::Texture* textures)
+  int platform_x, int platform_y, int height,  sf::Texture* textures)
 {
-
-  for (int i = 0; i < width; ++i)
+  for (int i = 0; i < height; ++i)
   {
-    int world_pos = (platform_x + i) * HEIGHT + platform_y;
-    int pos = (platform_x + i) * platform_y;
+    int world_pos = platform_x * HEIGHT + (platform_y - i);
+    int pos = platform_x * (platform_y - i);
 
-    world[world_pos]->init(textures[4], (pos / platform_y + i) * BLOCK_SZ,
-                           (pos / (platform_x)) * BLOCK_SZ);
+    world[world_pos]->init(textures[0], (pos / (platform_y - i)) * BLOCK_SZ,
+                           (pos / platform_x) * BLOCK_SZ);
   }
 }
 
@@ -186,14 +189,15 @@ void Level::generateWall(
   textureWall(platform_x, platform_y, height, textures);
 
   platforms[current_platforms]->getSprite()->setPosition(
-    world[platform_x * HEIGHT + platform_y]->getSprite()->getPosition());
+    world[platform_x * HEIGHT + (platform_y - height + 1)]->getSprite()->getPosition());
   platforms[current_platforms]->setWidth(BLOCK_SZ);
-  platforms[current_platforms]->setHeight(height*BLOCK_SZ);
+  platforms[current_platforms]->setHeight(height * BLOCK_SZ);
   platforms[current_platforms]->setMin();
   platforms[current_platforms]->calculateMax();
 
   current_platforms++;
 }
+
 void Level::generatePlatform(
   int platform_x, int platform_y, int width, sf::Texture* textures)
 {

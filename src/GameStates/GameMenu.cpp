@@ -12,7 +12,7 @@ GameMenu::GameMenu(
 
 bool GameMenu::init()
 {
-  Helper::SFMLText(text_title, "TEMPLATE", *font, 80,
+  Helper::SFMLText(text_title, "RAN OUT OF TIME", *font, 80,
                    basic, window.getSize().x / 2, 100);
   Helper::SFMLText(text_play, "PLAY", *font, 60,
                    basic, window.getSize().x / 2, window.getSize().y / 2 - 100);
