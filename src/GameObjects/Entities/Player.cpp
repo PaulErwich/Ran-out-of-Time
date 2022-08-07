@@ -6,7 +6,7 @@ Player::Player(sf::RenderWindow& game_window) : Entity(game_window)
 
 bool Player::init()
 {
-  if (!texture->loadFromFile("Data/Data/images/playerAnimationmk2.png"))
+  if (!texture->loadFromFile("Data/Data/images/clockBotSpritesheet.png"))
   {
     return false;
   }
@@ -15,7 +15,6 @@ bool Player::init()
   setPlayerAnimation();
 
   sprite->setTexture(*texture);
-
   sprite->scale(3, 3);
 
   width = sprite->getGlobalBounds().width;
@@ -140,7 +139,7 @@ void Player::setPlayerAnimation()
 
   else if (current_animation == AnimationState::RUNNING)
   {
-    player_texture_rectangle = sf::IntRect(0, 0, 17, 32);
+    player_texture_rectangle = sf::IntRect(17, 0, 17, 32);
     sprite->setTextureRect(player_texture_rectangle);
   }
 }

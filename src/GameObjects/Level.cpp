@@ -3,7 +3,7 @@
 sf::Texture Level::single_block_texture;
 sf::Texture Level::leaf_top_texture;
 sf::Texture Level::leaf_block_texture;
-sf::Texture Level::leaf_platform_texture[3];
+sf::Texture Level::leaf_platform_texture[4];
 
 Level::Level(sf::RenderWindow& game_window) : window(game_window)
 {
@@ -84,7 +84,31 @@ void Level::init_setup_blocks()
 
 void Level::init_setup_platforms()
 {
-  generatePlatform(5, 38, 3, leaf_platform_texture);
+  generatePlatform(8, 38, 3, leaf_platform_texture);
+  generatePlatform(10, 34, 3, leaf_platform_texture);
+  generatePlatform(18, 34, 4, leaf_platform_texture);
+  generatePlatform(22, 30, 3, leaf_platform_texture);
+  generatePlatform(17, 27, 3, leaf_platform_texture);
+  generatePlatform(12, 25, 4, leaf_platform_texture);
+  generatePlatform(7, 21, 4, leaf_platform_texture);
+  generatePlatform(12, 18, 13, leaf_platform_texture);
+  generatePlatform(22, 14, 3, leaf_platform_texture);
+  generatePlatform(8, 11, 5, leaf_platform_texture);
+  generatePlatform(17, 11, 4, leaf_platform_texture);
+  generatePlatform(8, 7, 4, leaf_platform_texture);
+  generatePlatform(18, -10, 6, leaf_platform_texture);
+  generatePlatform(12, -6, 4, leaf_platform_texture);
+  generatePlatform(8, -14, 8, leaf_platform_texture);
+  generatePlatform(19, -14, 8, leaf_platform_texture);
+  generatePlatform(16, -18, 11, leaf_platform_texture);
+  generatePlatform(10, -22, 4, leaf_platform_texture);
+  generatePlatform(13, -26, 4, leaf_platform_texture);
+  generatePlatform(16, -30, 4, leaf_platform_texture);
+  generatePlatform(16, -34, 4, leaf_platform_texture);
+  generatePlatform(8, -38, 8, leaf_platform_texture);
+  generatePlatform(18, -38, 9, leaf_platform_texture);
+
+  generateWall(8,38,10,leaf_platform_texture);
 }
 
 void Level::init_setup_enemies()
@@ -100,6 +124,7 @@ bool Level::loadAssets()
   if (!leaf_platform_texture[0].loadFromFile("Data/Data/images/tile_0077.png")) return false;
   if (!leaf_platform_texture[1].loadFromFile("Data/Data/images/tile_0078.png")) return false;
   if (!leaf_platform_texture[2].loadFromFile("Data/Data/images/tile_0079.png")) return false;
+  if (!leaf_platform_texture[3].loadFromFile("Data/Data/images/clockBlockWall.png")) return false;
 
   return true;
 }
@@ -141,6 +166,34 @@ void Level::textureRow(
   }
 }
 
+void Level::textureWall(
+  int platform_x, int platform_y, int width,  sf::Texture* textures)
+{
+
+  for (int i = 0; i < width; ++i)
+  {
+    int world_pos = (platform_x + i) * HEIGHT + platform_y;
+    int pos = (platform_x + i) * platform_y;
+
+    world[world_pos]->init(textures[4], (pos / platform_y + i) * BLOCK_SZ,
+                           (pos / (platform_x)) * BLOCK_SZ);
+  }
+}
+
+void Level::generateWall(
+  int platform_x, int platform_y, int height, sf::Texture* textures)
+{
+  textureWall(platform_x, platform_y, height, textures);
+
+  platforms[current_platforms]->getSprite()->setPosition(
+    world[platform_x * HEIGHT + platform_y]->getSprite()->getPosition());
+  platforms[current_platforms]->setWidth(BLOCK_SZ);
+  platforms[current_platforms]->setHeight(height*BLOCK_SZ);
+  platforms[current_platforms]->setMin();
+  platforms[current_platforms]->calculateMax();
+
+  current_platforms++;
+}
 void Level::generatePlatform(
   int platform_x, int platform_y, int width, sf::Texture* textures)
 {

@@ -11,6 +11,7 @@
 #include "../GameObjects/Entities/Enemy.h"
 
 #include "../GameObjects/Level.h"
+#include "../GameObjects/Spring.h"
 
 class GamePlay : public GameStateBase
 {
@@ -23,12 +24,15 @@ class GamePlay : public GameStateBase
   void input(sf::Event event) override;
   STATE update(float dt) override;
   void render() override;
+  void checkSpringCollisions(float dt);
 
  private:
   static const int enemy_count = 4;
+  static const int spring_count = 4;
 
   Player *player;
   Enemy* enemy[enemy_count]{};
+  Spring* springs[spring_count]{};
 
   Level* level;
 

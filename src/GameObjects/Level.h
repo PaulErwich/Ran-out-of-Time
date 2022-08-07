@@ -31,13 +31,13 @@ class Level
   static sf::Texture single_block_texture;
   static sf::Texture leaf_top_texture;
   static sf::Texture leaf_block_texture;
-  static sf::Texture leaf_platform_texture[3];
+  static sf::Texture leaf_platform_texture[4];
 
  private:
   sf::RenderWindow& window;
 
   static const int WIDTH = 32;
-  static const int HEIGHT = 45;
+  static const int HEIGHT = 90;
   static const int BLOCK_SZ = 60;
 
   Block *world[WIDTH * HEIGHT];
@@ -47,12 +47,11 @@ class Level
   GameObject* wall_one;
   GameObject* wall_two;
 
-  static const int PLAT_NUM = 18;
+  static const int PLAT_NUM = 200;
   int current_platforms;
   GameObject* platforms[PLAT_NUM];
 
   Player* player;
-
   static const int MAX_ENEMIES = 5;
   int current_enemies;
   Entity* enemies[MAX_ENEMIES];
@@ -63,6 +62,8 @@ class Level
 
   void textureRow(int platform_x, int platform_y, int width, sf::Texture textures[]);
 
+  void generateWall(int platform_x, int platform_y, int height, sf::Texture textures[]);
+
   void generatePlatform(int platform_x, int platform_y, int width, sf::Texture textures[]);
 
   void generateBlock(int platform_x, int platform_y, int texture_num);
@@ -70,6 +71,7 @@ class Level
   void generateBox(int platform_x, int platform_y, int width, int height,
                    sf::Texture textures[], bool on_floor);
 
+  void textureWall(int platform_x, int platform_y, int width, sf::Texture* textures);
 };
 
 #endif // SFMLTEMPLATE_LEVEL_H
