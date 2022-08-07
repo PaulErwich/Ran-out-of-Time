@@ -58,10 +58,10 @@ void Player::keyPressed(sf::Event event)
     movement.y = -5;
     on_ground = false;
   }
-  else if (event.key.code == sf::Keyboard::Space && !on_ground)
+ /* else if (event.key.code == sf::Keyboard::Space && !on_ground)
   {
     movement.y = 7.5;
-  }
+  }*/
 }
 
 void Player::keyReleased(sf::Event event)

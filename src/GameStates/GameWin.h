@@ -21,9 +21,12 @@ class GameWin : public GameStateBase
   STATE update(float dt) override;
   void render() override;
 
+
  private:
   sf::Text text_win;
   sf::Text return_to_menu;
+  sf::Sprite sprite;
+  sf::Texture texture;
 };
 
 #endif // SFMLTEMPLATE_GAMEWIN_H

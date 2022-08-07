@@ -1,7 +1,3 @@
-//
-// Created by MLG Erwich on 31/07/2022.
-//
-
 #include "GameWin.h"
 GameWin::GameWin(
   STATE state_id, sf::RenderWindow& game_window, sf::Font& game_font) :
@@ -11,10 +7,20 @@ GameWin::GameWin(
 
 bool GameWin::init()
 {
-  Helper::SFMLText(text_win, "TEMPLATE", *font, 80,
+
+  if (!texture.loadFromFile("Data/Data/images/manclock.png"))
+  {
+    return false;
+  }
+  sprite.setTexture(texture);
+  sprite.setScale(20,20);
+
+  sprite.setPosition(window.getSize().x/ 2 - (sprite.getGlobalBounds().width/2),window.getSize().y/2
+                                                                                      - (sprite.getGlobalBounds().height/2));
+  Helper::SFMLText(text_win, "You Win ", *font, 80,
                    basic, window.getSize().x / 2, 100);
   Helper::SFMLText(return_to_menu, "ENTER TO RETURN TO MENU", *font, 60,
-                   basic, window.getSize().x / 2, window.getSize().y / 2);
+                   basic, window.getSize().x / 2, window.getSize().y -150);
 
   return true;
 }
@@ -44,4 +50,5 @@ void GameWin::render()
 {
   window.draw(text_win);
   window.draw(return_to_menu);
+  window.draw(sprite);
 }
